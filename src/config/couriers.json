@@ -1,0 +1,31 @@
+{
+  "defaults": {
+    "timeoutMs": 10000,
+    "maxRetries": 3,
+    "retryBaseMs": 300,
+    "retryMaxMs": 5000
+  },
+  "couriers": {
+    "urbanebolt": {
+      "enabled": true,
+      "runtime": {},
+      "credentialsEnv": { "username": "URBANEBOLT_USERNAME", "password": "URBANEBOLT_PASSWORD" },
+      "settings": {
+        "baseUrl": "https://uat.urbanebolt.in",
+        "customerCode": "REPLACE_WITH_CUSTOMER_CODE",
+        "serviceType": "SDD",
+        "authPath": "/api/v1/auth/getToken/",
+        "createPath": "/api/v1/services/manifest/",
+        "trackPath": "/api/v1/services/tracking-pub/",
+        "cancelPath": "/api/v1/services/cancel/",
+        "authUserField": "username",
+        "authScheme": "Bearer",
+        "tokenTtlSeconds": 3000
+      }
+    },
+    "mock": {
+      "enabled": true,
+      "settings": { "latencyMs": 50, "stepSeconds": 5 }
+    }
+  }
+}

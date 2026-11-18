@@ -1,0 +1,475 @@
+{
+  "info": {
+    "name": "Multi-Courier Integration Platform",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "api_key",
+      "value": ""
+    },
+    {
+      "key": "batch_id",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "List couriers",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "x-api-key",
+            "value": "{{api_key}}",
+            "disabled": true
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/couriers",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "couriers"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Create order (mock)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "x-api-key",
+            "value": "{{api_key}}",
+            "disabled": true
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/orders",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "orders"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"courier_partner\": \"mock\",\n  \"order_id\": \"ORD-1001\",\n  \"pickup_address\": {\n    \"name\": \"Warehouse\",\n    \"phone\": \"9876543210\",\n    \"line1\": \"1 Industrial Rd\",\n    \"city\": \"Bengaluru\",\n    \"state\": \"KA\",\n    \"pincode\": \"560001\"\n  },\n  \"delivery_address\": {\n    \"name\": \"Asha\",\n    \"phone\": \"9123456780\",\n    \"line1\": \"22 MG Road\",\n    \"city\": \"Pune\",\n    \"state\": \"MH\",\n    \"pincode\": \"411001\"\n  },\n  \"items\": [\n    {\n      \"sku\": \"SKU-1\",\n      \"name\": \"Shoes\",\n      \"quantity\": 1,\n      \"unit_price\": 1999\n    }\n  ],\n  \"shipment\": {\n    \"weight_kg\": 1.2,\n    \"length_cm\": 20,\n    \"breadth_cm\": 15,\n    \"height_cm\": 10\n  },\n  \"payment\": {\n    \"mode\": \"PREPAID\"\n  }\n}"
+        }
+      }
+    },
+    {
+      "name": "Create order (urbanebolt)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "x-api-key",
+            "value": "{{api_key}}",
+            "disabled": true
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/orders",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "orders"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"courier_partner\": \"urbanebolt\",\n  \"order_id\": \"ORD-UB-1001\",\n  \"pickup_address\": {\n    \"name\": \"Warehouse\",\n    \"phone\": \"9876543210\",\n    \"line1\": \"1 Industrial Rd\",\n    \"city\": \"Bengaluru\",\n    \"state\": \"KA\",\n    \"pincode\": \"560001\"\n  },\n  \"delivery_address\": {\n    \"name\": \"Asha\",\n    \"phone\": \"9123456780\",\n    \"line1\": \"22 MG Road\",\n    \"city\": \"Pune\",\n    \"state\": \"MH\",\n    \"pincode\": \"411001\"\n  },\n  \"items\": [\n    {\n      \"sku\": \"SKU-1\",\n      \"name\": \"Shoes\",\n      \"quantity\": 1,\n      \"unit_price\": 1999\n    }\n  ],\n  \"shipment\": {\n    \"weight_kg\": 1.2,\n    \"length_cm\": 20,\n    \"breadth_cm\": 15,\n    \"height_cm\": 10\n  },\n  \"payment\": {\n    \"mode\": \"PREPAID\"\n  }\n}"
+        }
+      }
+    },
+    {
+      "name": "Create order - unknown courier",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "x-api-key",
+            "value": "{{api_key}}",
+            "disabled": true
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/orders",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "orders"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"courier_partner\": \"dhl\",\n  \"order_id\": \"ORD-1001\",\n  \"pickup_address\": {\n    \"name\": \"Warehouse\",\n    \"phone\": \"9876543210\",\n    \"line1\": \"1 Industrial Rd\",\n    \"city\": \"Bengaluru\",\n    \"state\": \"KA\",\n    \"pincode\": \"560001\"\n  },\n  \"delivery_address\": {\n    \"name\": \"Asha\",\n    \"phone\": \"9123456780\",\n    \"line1\": \"22 MG Road\",\n    \"city\": \"Pune\",\n    \"state\": \"MH\",\n    \"pincode\": \"411001\"\n  },\n  \"items\": [\n    {\n      \"sku\": \"SKU-1\",\n      \"name\": \"Shoes\",\n      \"quantity\": 1,\n      \"unit_price\": 1999\n    }\n  ],\n  \"shipment\": {\n    \"weight_kg\": 1.2,\n    \"length_cm\": 20,\n    \"breadth_cm\": 15,\n    \"height_cm\": 10\n  },\n  \"payment\": {\n    \"mode\": \"PREPAID\"\n  }\n}"
+        }
+      }
+    },
+    {
+      "name": "Create order - validation error",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "x-api-key",
+            "value": "{{api_key}}",
+            "disabled": true
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/orders",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "orders"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"courier_partner\": \"mock\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Get order",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "x-api-key",
+            "value": "{{api_key}}",
+            "disabled": true
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/orders/ORD-1001",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "orders",
+            "ORD-1001"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Track order",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "x-api-key",
+            "value": "{{api_key}}",
+            "disabled": true
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/orders/ORD-1001/track",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "orders",
+            "ORD-1001",
+            "track"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Cancel order",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "x-api-key",
+            "value": "{{api_key}}",
+            "disabled": true
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/orders/ORD-1001/cancel",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "orders",
+            "ORD-1001",
+            "cancel"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"courier_partner\": \"mock\",\n  \"reason\": \"customer request\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Bulk create",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "x-api-key",
+            "value": "{{api_key}}",
+            "disabled": true
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/orders/bulk",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "orders",
+            "bulk"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"orders\": [\n    {\n      \"courier_partner\": \"mock\",\n      \"order_id\": \"BULK-1\",\n      \"pickup_address\": {\n        \"name\": \"Warehouse\",\n        \"phone\": \"9876543210\",\n        \"line1\": \"1 Industrial Rd\",\n        \"city\": \"Bengaluru\",\n        \"state\": \"KA\",\n        \"pincode\": \"560001\"\n      },\n      \"delivery_address\": {\n        \"name\": \"Asha\",\n        \"phone\": \"9123456780\",\n        \"line1\": \"22 MG Road\",\n        \"city\": \"Pune\",\n        \"state\": \"MH\",\n        \"pincode\": \"411001\"\n      },\n      \"items\": [\n        {\n          \"sku\": \"SKU-1\",\n          \"name\": \"Shoes\",\n          \"quantity\": 1,\n          \"unit_price\": 1999\n        }\n      ],\n      \"shipment\": {\n        \"weight_kg\": 1.2,\n        \"length_cm\": 20,\n        \"breadth_cm\": 15,\n        \"height_cm\": 10\n      },\n      \"payment\": {\n        \"mode\": \"PREPAID\"\n      }\n    },\n    {\n      \"courier_partner\": \"mock\",\n      \"order_id\": \"BULK-2\",\n      \"pickup_address\": {\n        \"name\": \"Warehouse\",\n        \"phone\": \"9876543210\",\n        \"line1\": \"1 Industrial Rd\",\n        \"city\": \"Bengaluru\",\n        \"state\": \"KA\",\n        \"pincode\": \"560001\"\n      },\n      \"delivery_address\": {\n        \"name\": \"Asha\",\n        \"phone\": \"9123456780\",\n        \"line1\": \"22 MG Road\",\n        \"city\": \"Pune\",\n        \"state\": \"MH\",\n        \"pincode\": \"411001\"\n      },\n      \"items\": [\n        {\n          \"sku\": \"SKU-1\",\n          \"name\": \"Shoes\",\n          \"quantity\": 1,\n          \"unit_price\": 1999\n        }\n      ],\n      \"shipment\": {\n        \"weight_kg\": 1.2,\n        \"length_cm\": 20,\n        \"breadth_cm\": 15,\n        \"height_cm\": 10\n      },\n      \"payment\": {\n        \"mode\": \"PREPAID\"\n      }\n    },\n    {\n      \"courier_partner\": \"mock\",\n      \"order_id\": \"BULK-3\",\n      \"pickup_address\": {\n        \"name\": \"Warehouse\",\n        \"phone\": \"9876543210\",\n        \"line1\": \"1 Industrial Rd\",\n        \"city\": \"Bengaluru\",\n        \"state\": \"KA\",\n        \"pincode\": \"560001\"\n      },\n      \"delivery_address\": {\n        \"name\": \"Asha\",\n        \"phone\": \"9123456780\",\n        \"line1\": \"22 MG Road\",\n        \"city\": \"Pune\",\n        \"state\": \"MH\",\n        \"pincode\": \"411001\"\n      },\n      \"items\": [\n        {\n          \"sku\": \"SKU-1\",\n          \"name\": \"Shoes\",\n          \"quantity\": 1,\n          \"unit_price\": 1999\n        }\n      ],\n      \"shipment\": {\n        \"weight_kg\": 1.2,\n        \"length_cm\": 20,\n        \"breadth_cm\": 15,\n        \"height_cm\": 10\n      },\n      \"payment\": {\n        \"mode\": \"PREPAID\"\n      }\n    },\n    {\n      \"courier_partner\": \"mock\",\n      \"order_id\": \"BULK-FAIL-4\",\n      \"pickup_address\": {\n        \"name\": \"Warehouse\",\n        \"phone\": \"9876543210\",\n        \"line1\": \"1 Industrial Rd\",\n        \"city\": \"Bengaluru\",\n        \"state\": \"KA\",\n        \"pincode\": \"560001\"\n      },\n      \"delivery_address\": {\n        \"name\": \"Asha\",\n        \"phone\": \"9123456780\",\n        \"line1\": \"22 MG Road\",\n        \"city\": \"Pune\",\n        \"state\": \"MH\",\n        \"pincode\": \"411001\"\n      },\n      \"items\": [\n        {\n          \"sku\": \"SKU-1\",\n          \"name\": \"Shoes\",\n          \"quantity\": 1,\n          \"unit_price\": 1999\n        }\n      ],\n      \"shipment\": {\n        \"weight_kg\": 1.2,\n        \"length_cm\": 20,\n        \"breadth_cm\": 15,\n        \"height_cm\": 10\n      },\n      \"payment\": {\n        \"mode\": \"PREPAID\"\n      }\n    }\n  ]\n}"
+        }
+      }
+    },
+    {
+      "name": "Bulk status",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "x-api-key",
+            "value": "{{api_key}}",
+            "disabled": true
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/orders/bulk/{{batch_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "orders",
+            "bulk",
+            "{{batch_id}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Reconciliation worklist",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "x-api-key",
+            "value": "{{api_key}}",
+            "disabled": true
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/orders?status=FAILED&needs_reconciliation=true",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "orders"
+          ],
+          "query": [
+            {
+              "key": "status",
+              "value": "FAILED"
+            },
+            {
+              "key": "needs_reconciliation",
+              "value": "true"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "List operators",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/operators",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "operators"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get operator",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/operators/urbanebolt",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "operators",
+            "urbanebolt"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Update operator settings",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/operators/urbanebolt",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "operators",
+            "urbanebolt"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"settings\": {\n    \"customerCode\": \"UEBCUS0008\",\n    \"serviceType\": \"SDD\"\n  },\n  \"runtime\": {\n    \"timeoutMs\": 15000\n  }\n}"
+        }
+      }
+    },
+    {
+      "name": "Disable operator",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/operators/mock",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "operators",
+            "mock"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"enabled\": false\n}"
+        }
+      }
+    }
+  ]
+}
