@@ -57,6 +57,8 @@ rows. `sync()` only creates missing tables, so use real migrations before changi
 | `DB_DIALECT` | `mysql` (default) or `sqlite` |
 | `<OPERATOR>_USERNAME`, `<OPERATOR>_PASSWORD` | for example `URBANEBOLT_USERNAME`, `DELHIVERY_PASSWORD` |
 | `API_KEY` | optional, requires `x-api-key` on `/api/v1/*` |
+| `RATE_LIMIT_ENABLED`, `RATE_LIMIT_WINDOW_MS`, `RATE_LIMIT_MAX`, `RATE_LIMIT_STRICT_MAX` | rate limiting (defaults: on, 60000 ms, 300 requests, 20 strict) |
+| `TRUST_PROXY` | number of reverse proxies in front of the API (0 when none), so limits use the real client IP |
 | `PORT`, `LOG_LEVEL`, `BULK_MAX_SIZE`, `BULK_CONCURRENCY`, `COURIER_CONFIG_PATH` | service settings |
 
 Operator settings (base URL, paths, customer code, timeouts, retries, enabled flag) live in the `courier_operators`
@@ -96,8 +98,18 @@ Every error uses one shape:
 | `ORDER_ID_CONFLICT`, `ORDER_IN_PROGRESS`, `INVALID_ORDER_STATE` | 409 |
 | `COURIER_VALIDATION_ERROR`, `COURIER_UNSERVICEABLE`, `COURIER_REJECTED` | 422 |
 | `COURIER_AUTH_FAILED`, `COURIER_UNAVAILABLE` | 502 |
+| `RATE_LIMITED` | 429 |
 | `COURIER_RATE_LIMITED` | 503 |
 | `COURIER_TIMEOUT` | 504 |
+
+## Security
+
+- `helmet` sets security headers (strict `default-src 'none'` CSP, `no-referrer`, `nosniff`, and others).
+- `express-rate-limit` limits `/api/v1/*` per client (hashed `x-api-key` when sent, otherwise IP). Bulk submissions and
+  `PATCH /operators/{code}` use the stricter limit. Blocked requests return HTTP 429 `RATE_LIMITED` in the normal error shape
+  with `details.retry_after_seconds` and standard `RateLimit` headers. `/health` is not limited.
+- The limiter store is in memory. With several API nodes, use a shared store such as Redis.
+- Behind a load balancer set `TRUST_PROXY` to the number of proxies, otherwise every client shares the proxy's IP.
 
 ## Database
 
